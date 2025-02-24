@@ -1,0 +1,143 @@
+
+import Foundation
+
+// Enum for Expense Categories
+enum ExpenseCategory {
+    case food
+    case travel
+    case shopping 
+    case entertainment
+    case other
+}
+
+
+// // // struct Expense {
+// // //     var title: String
+// // //     var amount: Double
+// // //     var category: ExpenseCategory
+// // //     var date: Date
+
+// // //     var description: String {
+// // //         return "\(title): $\(amount) [\(category)] - \(dateFormatter.string(from: date))"
+// // //     }
+// // // }I created Expense as struct but after that in recurringexpense class theres a need of Expense so I convert Expense from struct to class
+
+// Class for Expense (Changed from struct to class)
+class Expense {
+    var title: String
+    var amount: Double
+    var category: ExpenseCategory
+    var date: Date
+
+    init(title: String, amount: Double, category: ExpenseCategory, date: Date = Date()) {
+        self.title = title
+        self.amount = amount
+        self.category = category
+        self.date = date
+    }
+
+    // Computed property to display formatted expense details
+    var description: String {
+        return "\(title): $\(amount) [\(category)] - \(dateFormatter.string(from: date))"
+    }
+}
+
+
+// Date Formatter for Readable Dates
+let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    return formatter
+}()
+
+// Expense Manager Class (Handles all operations)
+class ExpenseManager {
+    private var expenses: [Expense] = []  // Array to store expenses
+
+    
+    func addExpense(title: String, amount: Double, category: ExpenseCategory) {
+        let newExpense = Expense(title: title, amount: amount, category: category, date: Date())
+        expenses.append(newExpense)
+    }
+
+    // Function to display all expenses
+    func displayExpenses() {
+        if expenses.isEmpty
+        {
+            print("No expenses recorded yet.")
+        }
+        else
+        {
+            for expense in expenses {
+                print(expense.description)
+            }
+        }
+    }
+
+    
+    // Function to filter expenses by category
+    func filterExpenses(by category: ExpenseCategory) -> [Expense] 
+    {
+        return expenses.filter { $0.category == category }
+    }
+
+    // Function to calculate total expenses using closure
+    func calculateTotalExpense(completion: (Double) -> Void) {
+        let total = expenses.reduce(0) { $0 + $1.amount }
+        completion(total)
+    }
+}
+
+// Inheritance: Recurring Expense (Extends Expense)
+class RecurringExpense: Expense {
+    var frequency: String
+
+    init(title: String, amount: Double, category: ExpenseCategory, frequency: String) {
+        self.frequency = frequency
+        super.init(title: title, amount: amount, category: category)
+    }
+
+    override var description: String {
+        return super.description + " (Recurring: \(frequency))"
+    }
+}
+
+// Create Expense Manager Instance
+let manager = ExpenseManager()
+
+// Adding  expenses here of different-different category
+manager.addExpense(title: "Lunch", amount: 15.50, category: .food)
+manager.addExpense(   title:    "Uber Ride", amount: 8.99, category: .travel)
+manager.addExpense(title: "T-Shirt", amount: 25.00, category: .shopping)
+
+// Display all expenses
+print("\n All Expenses:")
+manager.displayExpenses()
+
+// Filter expenses by category (like Food,fruits)
+print("\n🍔 Food Expenses:")
+let foodExpenses = manager.filterExpenses(by: .food)
+for expense in foodExpenses {
+    print(expense.description)
+}
+
+
+// Filter expenses by category (travel)
+print("\n🍔 Travel Expenses:")
+let travel_Expenses = manager.filterExpenses(by: .travel)
+for expense in travel_Expenses{
+    print(expense.description)
+}
+
+
+
+// Calculate total expenses using a closure
+manager.calculateTotalExpense
+{
+    total in
+    print("\n💵 Total Spent: $\(total)")
+}
+
+// Example of Recurring Expense
+let recurringExpense = RecurringExpense(title: "Netflix Subscription", amount: 10.12, category: .entertainment, frequency: "Monthly")
+print("\n🔁 Recurring Expense: \(recurringExpense.description)")
