@@ -1,0 +1,63 @@
+# Optionals in Swift allow variables to have "no value" (nil),
+    preventing crashes caused by accessing missing data.
+
+🔹 Declaring an Optional Variable->To define an optional variable, use ? after the type:
+   var name: String? = "Aman"
+   var age: Int? = nil  // No value assigned
+
+✅ 1. Forced Unwrapping (!)-Use only when you are sure the value is not nil
+       var name: String? = "Aman"
+       // Forced Unwrapping (Risky)
+       print(name!)  // ⚠️ Crashes if name is nil
+
+✅ 2. Optional Binding (if let) – Safely unwraps only if a value exists
+       var name: String? = "Aman"
+       if let unwrappedName = name {
+            print("Hello, \(unwrappedName)")  // Output: Hello, Aman
+       } else {
+           print("No name provided.")
+       }
+✅ 3. Guard Statement (guard let) – Used for early exit in functions
+      func greetUser(_ username: String?) {
+         guard let name = username else {
+              print("No username found.")
+              return  // Early exit if username is nil
+        }
+       print("Welcome, \(name)!")
+     }
+
+     greetUser("Aman")  // Output: Welcome, Aman!
+     greetUser(nil)      // Output: No username found.
+
+
+
+✅ 4. Nil Coalescing Operator (??) – Provides a default value if nil
+    var userNickname: String? = nil
+    let displayName = userNickname ?? "Guest"
+    print(displayName)  // Output: Guest
+
+/*
+var userAge: Int? = nil
+
+// Using if let
+if let age = userAge {
+    print("User age: \(age)")
+} else {
+    print("Age not provided.")
+}
+
+// Using guard let
+func printAge(_ age: Int?) {
+    guard let userAge = age else {
+        print("Age is unknown.")
+        return
+    }
+    print("User is \(userAge) years old.")
+}
+
+printAge(userAge)
+
+// Using nil coalescing
+let displayedAge = userAge ?? 18
+print("Displayed age: \(displayedAge)")
+*/
