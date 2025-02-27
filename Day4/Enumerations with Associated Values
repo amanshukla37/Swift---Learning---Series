@@ -1,0 +1,29 @@
+🔹When we need to associate extra data with an enum case,
+we use associated values. For example, an error might have an
+associated message, or a network result might include data about success or failure.
+
+
+enum ServerResponse {
+    case success(code: Int, message: String)
+    case failure(error: String)
+    case loading
+}
+
+func handleResponse(_ response: ServerResponse) {
+    switch response {
+    case .success(let code, let message):
+        print("Success! Code: \(code), Message: \(message)")
+    case .failure(let error):
+        print("Failed with error: \(error)")
+    case .loading:
+        print("Loading data...")
+    }
+}
+
+let successResponse = ServerResponse.success(code: 200, message: "Data retrieved successfully.")
+let failureResponse = ServerResponse.failure(error: "Network timeout.")
+let loadingResponse = ServerResponse.loading
+
+handleResponse(successResponse)  // Output: Success! Code: 200, Message: Data retrieved successfully.
+handleResponse(failureResponse)   // Output: Failed with error: Network timeout.
+handleResponse(loadingResponse)   // Output: Loading data...
