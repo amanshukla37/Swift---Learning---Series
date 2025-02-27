@@ -1,0 +1,33 @@
+🔹A tuple in Swift is a lightweight collection of multiple values grouped together into a single compound value.
+ Tuples are useful when you want to return multiple values from a function or temporarily store related pieces of data without creating a full-fledged structure or class.
+
+🔹Declaring a Tuple
+ let person = ("Aman", 25, true)
+
+🔹Accessing Tuple Elements
+✅ Using Indexes
+print(person.0) // Output: Aman
+print(person.1) // Output: 25
+print(person.2) // Output: true
+
+✅ Using Named Elements
+let personInfo = (name: "Aman", age: 25, isDeveloper: true)
+print(personInfo.name)       // Output: Aman
+print(personInfo.age)        // Output: 25
+print(personInfo.isDeveloper) // Output: true
+
+🔹 Returning Multiple Values Using Tuples
+func getUserInfo() -> (String, Int, Bool) {
+    return ("Aman", 25, true)
+}
+
+let user = getUserInfo()
+print("Name: \(user.0), Age: \(user.1), Developer: \(user.2)")
+// Output: Name: Aman, Age: 25, Developer: true
+
+🔹 Tuple Destructuring (Decomposition)
+let (name, age, isDeveloper) = person
+print(name)        // Output: Aman
+print(age)         // Output: 25
+print(isDeveloper) // Output: true
+
